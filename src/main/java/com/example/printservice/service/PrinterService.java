@@ -2,16 +2,14 @@ package com.example.printservice.service;
 
 import java.util.List;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.printservice.bo.PrinterBO;
-import com.example.printservice.entity.Printer;
 import com.example.printservice.vo.PrinterVO;
 
 /**
  * 打印机服务接口
  * 提供打印机相关的业务操作
  */
-public interface PrinterService extends IService<Printer> {
+public interface PrinterService {
     
     /**
      * 添加打印机

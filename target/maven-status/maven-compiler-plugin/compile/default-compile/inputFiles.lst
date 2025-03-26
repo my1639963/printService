@@ -1,1 +1,16 @@
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/interceptor/RequestLogInterceptor.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/vo/PrinterVO.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/config/DatabaseConfig.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/common/GlobalExceptionHandler.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/mapper/PrinterMapper.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/bo/PrinterBO.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/controller/TestController.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/config/OpenApiConfig.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/config/WebConfig.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/common/Result.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/controller/PrinterController.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/entity/Printer.java
 /Users/apple/repositories/printService/src/main/java/com/example/printservice/PrintServiceApplication.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/common/BusinessException.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/service/impl/PrinterServiceImpl.java
+/Users/apple/repositories/printService/src/main/java/com/example/printservice/service/PrinterService.java

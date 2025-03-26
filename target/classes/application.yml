@@ -8,20 +8,6 @@ spring:
     username: 
     password: 
 
-mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.example.printservice.entity
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
-  global-config:
-    db-config:
-      id-type: auto
-      logic-delete-field: deleted
-      logic-delete-value: 1
-      logic-not-delete-value: 0
-
 # OpenAPI 配置
 springdoc:
   api-docs:
@@ -36,8 +22,7 @@ springdoc:
 logging:
   level:
     root: INFO
-    com.example.printservice: DEBUG
-    com.baomidou.mybatisplus: DEBUG
+    '[com.example.printservice]': DEBUG
   file:
     name: logs/print-service.log
   pattern:

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.printservice.bo.PrinterBO;
 import com.example.printservice.entity.Printer;
 import com.example.printservice.mapper.PrinterMapper;
@@ -20,7 +20,10 @@ import com.example.printservice.vo.PrinterVO;
  * 实现打印机相关的业务逻辑
  */
 @Service
-public class PrinterServiceImpl extends ServiceImpl<PrinterMapper, Printer> implements PrinterService {
+public class PrinterServiceImpl implements PrinterService {
+
+    @Autowired
+    private PrinterMapper printerMapper;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -28,31 +31,31 @@ public class PrinterServiceImpl extends ServiceImpl<PrinterMapper, Printer> impl
     @Transactional
     public boolean addPrinter(PrinterBO printerBO) {
         Printer printer = convertToEntity(printerBO);
-        return save(printer);
+        return printerMapper.insert(printer) > 0;
     }
 
     @Override
     @Transactional
     public boolean updatePrinter(PrinterBO printerBO) {
         Printer printer = convertToEntity(printerBO);
-        return updateById(printer);
+        return printerMapper.update(printer) > 0;
     }
 
     @Override
     @Transactional
     public boolean deletePrinter(Long id) {
-        return removeById(id);
+        return printerMapper.deleteById(id) > 0;
     }
 
     @Override
     public PrinterVO getPrinterDetail(Long id) {
-        Printer printer = getById(id);
+        Printer printer = printerMapper.selectById(id);
         return convertToVO(printer);
     }
 
     @Override
     public List<PrinterVO> getPrinterList() {
-        List<Printer> printers = list();
+        List<Printer> printers = printerMapper.selectList();
         return printers.stream()
                 .map(this::convertToVO)
                 .collect(Collectors.toList());
@@ -61,10 +64,7 @@ public class PrinterServiceImpl extends ServiceImpl<PrinterMapper, Printer> impl
     @Override
     @Transactional
     public boolean updatePrinterStatus(Long id, String status) {
-        Printer printer = new Printer();
-        printer.setId(id);
-        printer.setStatus(status);
-        return updateById(printer);
+        return printerMapper.updateStatus(id, status) > 0;
     }
 
     /**
