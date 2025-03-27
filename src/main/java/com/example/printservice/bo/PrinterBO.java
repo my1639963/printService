@@ -1,4 +1,4 @@
-package com.example.printservice.bo;
+package online.fantao.tools.printservice.bo;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,9 +1,9 @@
-package com.example.printservice.service;
+package online.fantao.tools.printservice.service;
 
 import java.util.List;
 
-import com.example.printservice.bo.PrinterBO;
-import com.example.printservice.vo.PrinterVO;
+import online.fantao.tools.printservice.bo.PrinterBO;
+import online.fantao.tools.printservice.vo.PrinterVO;
 
 /**
  * 打印机服务接口

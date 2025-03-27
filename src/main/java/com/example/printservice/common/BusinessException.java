@@ -1,4 +1,4 @@
-package com.example.printservice.common;
+package online.fantao.tools.printservice.common;
 
 /**
  * 业务异常类

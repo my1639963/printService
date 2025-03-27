@@ -1,4 +1,4 @@
-package com.example.printservice.config;
+package online.fantao.tools.printservice.config;
 
 import java.io.IOException;
 import java.nio.file.Files;

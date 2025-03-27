@@ -1,4 +1,4 @@
-package com.example.printservice.config;
+package online.fantao.tools.printservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

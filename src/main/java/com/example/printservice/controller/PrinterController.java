@@ -1,4 +1,4 @@
-package com.example.printservice.controller;
+package online.fantao.tools.printservice.controller;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.printservice.bo.PrinterBO;
-import com.example.printservice.common.Result;
-import com.example.printservice.service.PrinterService;
-import com.example.printservice.vo.PrinterVO;
+import online.fantao.tools.printservice.bo.PrinterBO;
+import online.fantao.tools.printservice.common.Result;
+import online.fantao.tools.printservice.service.PrinterService;
+import online.fantao.tools.printservice.vo.PrinterVO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package com.example.printservice.service.impl;
+package online.fantao.tools.printservice.service.impl;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.printservice.bo.PrinterBO;
-import com.example.printservice.entity.Printer;
-import com.example.printservice.mapper.PrinterMapper;
-import com.example.printservice.service.PrinterService;
-import com.example.printservice.vo.PrinterVO;
+import online.fantao.tools.printservice.bo.PrinterBO;
+import online.fantao.tools.printservice.entity.Printer;
+import online.fantao.tools.printservice.mapper.PrinterMapper;
+import online.fantao.tools.printservice.service.PrinterService;
+import online.fantao.tools.printservice.vo.PrinterVO;
 
 /**
  * 打印机服务实现类

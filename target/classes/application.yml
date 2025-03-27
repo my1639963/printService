@@ -22,7 +22,7 @@ springdoc:
 logging:
   level:
     root: INFO
-    '[com.example.printservice]': DEBUG
+    '[online.fantao.tools.printservice]': DEBUG
   file:
     name: logs/print-service.log
   pattern:

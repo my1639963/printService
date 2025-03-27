@@ -1,4 +1,4 @@
-package com.example.printservice.entity;
+package online.fantao.tools.printservice.entity;
 
 import java.time.LocalDateTime;
 

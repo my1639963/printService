@@ -1,4 +1,4 @@
-package com.example.printservice;
+package online.fantao.tools.printservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,4 +11,4 @@ public class PrintServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(PrintServiceApplication.class, args);
     }
-} 
+}

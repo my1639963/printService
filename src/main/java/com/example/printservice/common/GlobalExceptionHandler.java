@@ -1,4 +1,4 @@
-package com.example.printservice.common;
+package online.fantao.tools.printservice.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
