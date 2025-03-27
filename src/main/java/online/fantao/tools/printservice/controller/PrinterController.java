@@ -1,9 +1,7 @@
 package online.fantao.tools.printservice.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import online.fantao.tools.printservice.bo.PrinterBO;
-import online.fantao.tools.printservice.common.Result;
-import online.fantao.tools.printservice.service.PrinterService;
-import online.fantao.tools.printservice.vo.PrinterVO;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import online.fantao.tools.printservice.bo.PrinterBO;
+import online.fantao.tools.printservice.common.Result;
+import online.fantao.tools.printservice.service.PrinterService;
+import online.fantao.tools.printservice.vo.PrinterVO;
 
 /**
  * 打印机管理控制器
@@ -114,7 +111,7 @@ public class PrinterController {
 
     @Operation(summary = "扫描在线设备", description = "扫描在线设备")
     @GetMapping("/scan")
-    public List<PrinterVO> getSystemPrinters() {
-        return printerService.getSystemPrinters();
+    public Result<List<PrinterVO>> getSystemPrinters() {
+        return Result.success(printerService.getSystemPrinters());
     }
 } 

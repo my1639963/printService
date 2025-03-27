@@ -1,31 +1,33 @@
 package online.fantao.tools.printservice.service.impl;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.print.DocFlavor;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.Attribute;
+import javax.print.attribute.standard.PrinterURI;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import online.fantao.tools.printservice.bo.PrinterBO;
 import online.fantao.tools.printservice.entity.Printer;
 import online.fantao.tools.printservice.mapper.PrinterMapper;
 import online.fantao.tools.printservice.service.PrinterService;
 import online.fantao.tools.printservice.vo.PrinterVO;
-
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.attribute.Attribute;
-import javax.print.DocFlavor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import lombok.extern.slf4j.Slf4j;
-import online.fantao.tools.printservice.util.SnmpUtil;
 
 /**
  * 打印机服务实现类
@@ -139,7 +141,7 @@ public class PrinterServiceImpl implements PrinterService {
 
                 // 如果是真实打印机，尝试获取IP和端口
                 if (!printerVO.getName().contains("PDF") && !printerVO.getName().contains("Microsoft")) {
-                    Map<String, String> networkInfo = SnmpUtil.getPrinterNetworkInfo(printerVO.getName());
+                    Map<String, String> networkInfo = getPrinterNetworkInfo(printerVO.getName());
                     if (!networkInfo.isEmpty()) {
                         printerVO.setIpAddress(networkInfo.get("ipAddress"));
                         printerVO.setPort(Integer.parseInt(networkInfo.get("port")));
@@ -152,6 +154,89 @@ public class PrinterServiceImpl implements PrinterService {
             log.error("获取系统打印机列表失败", e);
         }
         return printers;
+    }
+
+    /**
+     * 获取打印机IP地址和端口号
+     * @param printerName 打印机名称
+     * @return 包含IP和端口的信息
+     */
+    private Map<String, String> getPrinterNetworkInfo(String printerName) {
+        Map<String, String> result = new HashMap<>();
+        try {
+            // 获取所有打印机服务
+            PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+            
+            // 查找匹配的打印机
+            for (PrintService printService : printServices) {
+                // 获取打印机名称
+                String name = printService.getName();
+                if (name.equals(printerName)) {
+                    // 获取打印机URI
+                    Attribute uriAttr = printService.getAttribute(PrinterURI.class);
+                    if (uriAttr != null) {
+                        String uri = uriAttr.toString();
+                        // 解析URI获取IP地址
+                        if (uri.startsWith("socket://")) {
+                            String ipPort = uri.substring(9); // 移除 "socket://" 前缀
+                            String[] parts = ipPort.split(":");
+                            if (parts.length == 2) {
+                                result.put("ipAddress", parts[0]);
+                                result.put("port", parts[1]);
+                                return result;
+                            }
+                        }
+                    }
+                    
+                    // 如果无法从URI获取，尝试从打印机名称解析
+                    if (name.contains("(") && name.contains(")")) {
+                        String ipPort = name.substring(name.indexOf("(") + 1, name.indexOf(")"));
+                        String[] parts = ipPort.split(":");
+                        if (parts.length == 2) {
+                            result.put("ipAddress", parts[0]);
+                            result.put("port", parts[1]);
+                            return result;
+                        }
+                    }
+                    
+                    // 如果还是无法获取，尝试从本地网络接口获取
+                    List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
+                    for (NetworkInterface ni : interfaces) {
+                        if (ni.isUp() && !ni.isLoopback() && !ni.isVirtual()) {
+                            for (InetAddress addr : Collections.list(ni.getInetAddresses())) {
+                                if (addr instanceof java.net.Inet4Address) {
+                                    String ip = addr.getHostAddress();
+                                    // 尝试连接打印机
+                                    if (isPrinterReachable(ip, 9100)) {
+                                        result.put("ipAddress", ip);
+                                        result.put("port", "9100");
+                                        return result;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error("获取打印机网络信息失败", e);
+        }
+        return result;
+    }
+
+    /**
+     * 检查打印机是否可达
+     * @param ip IP地址
+     * @param port 端口号
+     * @return 是否可达
+     */
+    private boolean isPrinterReachable(String ip, int port) {
+        try (java.net.Socket socket = new java.net.Socket()) {
+            socket.connect(new java.net.InetSocketAddress(ip, port), 1000);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
