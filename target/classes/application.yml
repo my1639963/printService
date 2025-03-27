@@ -7,6 +7,14 @@ spring:
     url: jdbc:sqlite:printservice.db
     username: 
     password: 
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      encoding: UTF-8
+      separator: ;
+      continue-on-error: true
 
 # OpenAPI 配置
 springdoc:

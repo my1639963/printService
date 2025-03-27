@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
 import online.fantao.tools.printservice.bo.PrinterBO;
 import online.fantao.tools.printservice.entity.Printer;
 import online.fantao.tools.printservice.mapper.PrinterMapper;
@@ -20,10 +20,10 @@ import online.fantao.tools.printservice.vo.PrinterVO;
  * 实现打印机相关的业务逻辑
  */
 @Service
+@RequiredArgsConstructor
 public class PrinterServiceImpl implements PrinterService {
 
-    @Autowired
-    private PrinterMapper printerMapper;
+    private final PrinterMapper printerMapper;
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -38,7 +38,8 @@ public class PrinterServiceImpl implements PrinterService {
     @Transactional
     public boolean updatePrinter(PrinterBO printerBO) {
         Printer printer = convertToEntity(printerBO);
-        return printerMapper.update(printer) > 0;
+        return printerMapper.updateById(printer) > 0;
+        
     }
 
     @Override
@@ -55,7 +56,7 @@ public class PrinterServiceImpl implements PrinterService {
 
     @Override
     public List<PrinterVO> getPrinterList() {
-        List<Printer> printers = printerMapper.selectList();
+        List<Printer> printers = printerMapper.selectList(null);
         return printers.stream()
                 .map(this::convertToVO)
                 .collect(Collectors.toList());
@@ -64,7 +65,10 @@ public class PrinterServiceImpl implements PrinterService {
     @Override
     @Transactional
     public boolean updatePrinterStatus(Long id, String status) {
-        return printerMapper.updateStatus(id, status) > 0;
+        Printer printer = new Printer();
+        printer.setId(id);
+        printer.setStatus(status);
+        return printerMapper.updateById(printer) > 0;
     }
 
     /**

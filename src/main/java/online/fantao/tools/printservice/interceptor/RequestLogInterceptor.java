@@ -5,28 +5,25 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 请求日志拦截器
  * 记录请求和响应的详细信息
  */
 @Component
+@RequiredArgsConstructor
+@SuppressWarnings("null")
 public class RequestLogInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestLogInterceptor.class);
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

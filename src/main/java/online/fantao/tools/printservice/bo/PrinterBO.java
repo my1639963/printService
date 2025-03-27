@@ -7,11 +7,14 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import java.time.LocalDateTime;
 
+import org.springframework.validation.annotation.Validated;
+
 /**
  * 打印机业务对象
  * 用于接收前端请求数据，包含参数验证
  */
 @Data
+@Validated
 public class PrinterBO {
     /**
      * 打印机ID
