@@ -1,5 +1,6 @@
 D:\repos\printService\src\main\java\online\fantao\tools\printservice\config\OpenApiConfig.java
 D:\repos\printService\src\main\java\online\fantao\tools\printservice\service\PrinterService.java
+D:\repos\printService\src\main\java\online\fantao\tools\printservice\util\SnmpUtil.java
 D:\repos\printService\src\main\java\online\fantao\tools\printservice\entity\Printer.java
 D:\repos\printService\src\main\java\online\fantao\tools\printservice\vo\PrinterVO.java
 D:\repos\printService\src\main\java\online\fantao\tools\printservice\common\BusinessException.java

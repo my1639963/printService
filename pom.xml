@@ -30,6 +30,7 @@
         <sqlite-jdbc.version>3.45.1.0</sqlite-jdbc.version>
         <lombok.version>1.18.30</lombok.version>
         <mybatis-plus.version>3.5.11</mybatis-plus.version>
+        <snmp4j.version>3.7.7</snmp4j.version>
     </properties>
 
     <dependencies>
@@ -75,6 +76,12 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
+        </dependency>
+        <!-- SNMP4J -->
+        <dependency>
+            <groupId>org.snmp4j</groupId>
+            <artifactId>snmp4j</artifactId>
+            <version>${snmp4j.version}</version>
         </dependency>
     </dependencies>
 </project> 

@@ -1,6 +1,7 @@
 package online.fantao.tools.printservice.vo;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -15,4 +16,6 @@ public class PrinterVO {
     private LocalDateTime lastOnlineTime;
     private String statusText;
     private String lastOnlineTimeText;
+    private Boolean isDefault;
+    private Map<String, String> attributes;
 } 

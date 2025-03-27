@@ -1,6 +1,7 @@
 package online.fantao.tools.printservice.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import online.fantao.tools.printservice.vo.PrinterVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 打印机管理控制器
@@ -31,10 +33,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/api/printer")
 @Validated
+@RequiredArgsConstructor
 public class PrinterController {
 
-    @Autowired
-    private PrinterService printerService;
+    private final PrinterService printerService;
 
     /**
      * 添加打印机
@@ -108,5 +110,11 @@ public class PrinterController {
             @Parameter(description = "新状态", required = true)
             @RequestParam String status) {
         return Result.success(printerService.updatePrinterStatus(id, status));
+    }
+
+    @Operation(summary = "扫描在线设备", description = "扫描在线设备")
+    @GetMapping("/scan")
+    public List<PrinterVO> getSystemPrinters() {
+        return printerService.getSystemPrinters();
     }
 } 
