@@ -33,3 +33,6 @@ target/
 # vs code
 .vscode/
 .DS_Store
+
+# 上传的文件
+uploads/
